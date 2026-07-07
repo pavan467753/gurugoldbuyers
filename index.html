@@ -200,48 +200,25 @@
 </div>
 
 <script>
-// Live target rates automatically match active domestic retail indexes
-let rates = { gold24k: 13703, gold22k: 12505, silver: 228 };
+// ====================================================
+// CHANGE THESE PRICES MANUALLY EVERY DAY
+// ====================================================
+let rates = { 
+  gold24k: 14000,  // Enter 24K price here
+  gold22k: 12505,  // Enter 22K price here
+  silver: 228      // Enter Silver price here
+};
+// ====================================================
 
-// Replace with your rotated Metals.dev secret token securely
-const API_KEY = 'YOUR_NEW_API_KEY';
-
-async function fetchLiveRates() {
-  try {
-    const response = await fetch(`https://api.metals.dev/v1/latest?api_key=${API_KEY}&currency=INR&unit=g`);
-    if (response.ok) {
-      const data = await response.json();
-      
-      if (data && data.metals && data.metals.gold && data.metals.silver) {
-        // Formulated multipliers sync the spot market indexes cleanly into local consumer market references
-        const liveMarket24k = Math.round(data.metals.gold * 1.151);
-        const liveMarket22k = Math.round(liveMarket24k * 0.9167);
-        const liveMarketSilver = Math.round(data.metals.silver * 1.085);
-        
-        // Exact custom cash buying modifications configured per gram
-        const updated24k = liveMarket24k ;
-        const updated22k = liveMarket22k ;
-        const updatedSilver = liveMarketSilver - 100;
-
-        if (updated24k > 5000) {
-          rates.gold24k = updated24k;
-          rates.gold22k = updated22k;
-          rates.silver = updatedSilver;
-        }
-      }
-    }
-  } catch (error) {
-    console.log("Using cached dynamic baseline calculation parameters.", error);
-  }
-  
+function updatePriceDisplay() {
   // Output parameters directly into frontend layout contexts
   document.getElementById('display-24k').innerText = `₹${rates.gold24k.toLocaleString('en-IN')}/g`;
   document.getElementById('display-22k').innerText = `₹${rates.gold22k.toLocaleString('en-IN')}/g`;
   document.getElementById('display-silver').innerText = `₹${rates.silver.toLocaleString('en-IN')}/g`;
 }
 
-// Instantiate calculation workflows on document load
-fetchLiveRates();
+// Load manually configured rates immediately on window load
+updatePriceDisplay();
 
 function enterSite() {
   const n = document.getElementById('name').value.trim();
