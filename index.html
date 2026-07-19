@@ -205,17 +205,12 @@
 // ====================================================
 let rates = { 
   gold24k: 14000,  // Enter 24K price here
-<<<<<<< HEAD
-  gold22k: 12505,  // Enter 22K price here
-=======
   gold22k: 12800,  // Enter 22K price here
->>>>>>> eb7ae75b9360805b16d55a08c36db7948ddf807d
   silver: 228      // Enter Silver price here
 };
 // ====================================================
 
 function updatePriceDisplay() {
-  // Output parameters directly into frontend layout contexts
   document.getElementById('display-24k').innerText = `₹${rates.gold24k.toLocaleString('en-IN')}/g`;
   document.getElementById('display-22k').innerText = `₹${rates.gold22k.toLocaleString('en-IN')}/g`;
   document.getElementById('display-silver').innerText = `₹${rates.silver.toLocaleString('en-IN')}/g`;
@@ -252,7 +247,6 @@ function enterSite() {
     })
   }).catch(err => console.error('Lead pipeline failure:', err));
 
-  // Renders synchronized dynamic calculations within the target popup layout box
   document.getElementById('popupContent').innerHTML = `
     <h2 style="color: #d97706; margin-bottom: 15px;">Today's Live Rates</h2>
     <div class="popup-rate"><span>✨ 24K Gold:</span> <span>₹${rates.gold24k.toLocaleString('en-IN')}/g</span></div>
